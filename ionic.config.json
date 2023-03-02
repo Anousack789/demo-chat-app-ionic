@@ -1,0 +1,7 @@
+{
+  "name": "demoChatApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
