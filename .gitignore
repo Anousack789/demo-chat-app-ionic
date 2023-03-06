@@ -8,6 +8,7 @@
 *.tmp.*
 UserInterfaceState.xcuserstate
 $RECYCLE.BIN/
+.vscode/settings.json
 
 *.log
 log.txt
