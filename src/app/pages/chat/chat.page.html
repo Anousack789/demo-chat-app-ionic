@@ -1,9 +1,71 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>chat</ion-title>
+<ion-header class="ion-no-border">
+  <ion-toolbar class="header ">
+    <ion-buttons slot="start">
+      <ion-button [routerLink]="['/']">
+        <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-avatar slot="start">
+      <img src="assets/robot-image-x500.jpeg" alt="item-img">
+    </ion-avatar>
+    <ion-title>
+      <ion-label>
+        <ion-text>Chat-GPT</ion-text>
+        <p><ion-text>Online</ion-text></p>
+      </ion-label>
+    </ion-title>
+    <ion-buttons slot="primary">
+      <ion-button>
+        <ion-icon slot="icon-only" name="videocam-outline"></ion-icon>
+      </ion-button>
+      <ion-button>
+        <ion-icon slot="icon-only" name="call-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<!-- ! Content -->
+<ion-content class="ion-padding">
+  <ng-container *ngIf="listMessage$ | async as listMessage">
 
+
+    <div class="messages" *ngFor="let group of listMessage" [ngClass]="group.type">
+      <ng-container class="message other" *ngFor="let msg of group.messages; let i = index">
+        <ng-container *ngIf="i === group.messages.length - 1; else notLast">
+          <div class="last-message-other">
+            <ion-avatar *ngIf="group.type === 'receiver'">
+              <img src="assets/robot-image-x500.jpeg" alt="item-img">
+            </ion-avatar>
+            <div class="message message-last">
+              {{msg.message}}
+            </div>
+          </div>
+          <span>
+            {{msg.timestamp | date : 'hh:mm a'}}
+          </span>
+        </ng-container>
+        <ng-template #notLast>
+          <div class="message other">
+            {{msg.message}}
+          </div>
+        </ng-template>
+
+      </ng-container>
+
+
+
+
+    </div>
+  </ng-container>
 </ion-content>
+
+<!-- ! Footer -->
+<ion-footer class="ion-no-border">
+  <div class="message-input">
+    <input type="text" placeholder="Type your message ..." [(ngModel)]="message" />
+    <div class="send-button" (click)="sendMessage()">
+      <ion-icon name="send-sharp"></ion-icon>
+    </div>
+  </div>
+</ion-footer>

@@ -1,0 +1,78 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="header">
+
+    <ion-avatar slot="start">
+      <img src="assets/robot-image-x500.jpeg" alt="chat-gpt-img">
+    </ion-avatar>
+    <ion-title>
+      <ion-label>
+        <ion-text>KKS-GPT</ion-text>
+        <p><ion-text>Online</ion-text></p>
+      </ion-label>
+    </ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<!-- ! Content -->
+<ion-content class="ion-padding">
+  <ng-container *ngIf="listMessage$ | async as listMessage">
+
+
+    <div class="messages" *ngFor="let group of listMessage" [ngClass]="group.type">
+      <ng-container class="message other" *ngFor="let msg of group.messages; let i = index">
+        <ng-container *ngIf="i === group.messages.length - 1; else notLast">
+          <div class="last-message-other">
+
+            <div class="message message-last" [innerText]="msg.message">
+              {{msg.message}}
+            </div>
+
+          </div>
+          <span>
+            {{msg.timestamp | date : 'hh:mm a'}}
+          </span>
+        </ng-container>
+        <ng-template #notLast>
+          <div class="message other" [innerText]="msg.message">
+          </div>
+        </ng-template>
+
+      </ng-container>
+
+
+
+
+    </div>
+    <ng-container *ngIf="onResponding">
+      <ng-container *ngIf="streamMessage$ | async as streamMsg">
+        <div class="messages receiver">
+          <div class="last-message-other">
+            <div class="message message-last" [innerText]="streamMsg">
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+
+  </ng-container>
+</ion-content>
+
+<!-- ! Footer -->
+<ion-footer class="ion-no-border">
+  <div class="message-input">
+    <input type="text" placeholder="Type your message ..." [(ngModel)]="message" (keyup.enter)="sendMessage()" />
+    <ion-buttons>
+      <ion-button class="message-button send-button" (click)="sendMessage()" *ngIf="message.length > 0 && !onResponding">
+        <ion-icon slot="icon-only" name="send-sharp"></ion-icon>
+      </ion-button>
+      <ion-button class="message-button clear-button" (click)="clearMessage()" *ngIf="message.length === 0 && !onResponding">
+        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+      </ion-button>
+
+      <ion-button class="message-button clear-button" (click)="stopResponding()" *ngIf="onResponding">
+        <ion-icon slot="icon-only" name="stop-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </div>
+</ion-footer>

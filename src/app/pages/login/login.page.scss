@@ -1,0 +1,20 @@
+ion-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.optional {
+  display: flex;
+}
+#btn-google {
+  ion-icon {
+    margin-left: 3px;
+  }
+}
+
+ion-card {
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  max-width: 350px;
+}

@@ -1,0 +1,137 @@
+<ion-header class="ion-no-border" mode="md">
+  <ion-toolbar class="ion-no-padding">
+    <ion-title slot="start">KKS-GPT</ion-title>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon slot="icon-only" name="camera-outline"></ion-icon>
+      </ion-button>
+      <ion-button>
+        <ion-icon slot="icon-only" name="search-outline"></ion-icon>
+      </ion-button>
+      <ion-button id="ellipsisTrigger">
+        <ion-icon slot="icon-only" name="ellipsis-vertical-outline"></ion-icon>
+      </ion-button>
+      <ion-popover trigger="ellipsisTrigger" triggerAction="click">
+        <ng-template>
+          <ion-content class="ion-no-padding">
+            <ion-list>
+              <ion-item lines="full">
+                <ion-label>New group</ion-label>
+              </ion-item>
+              <ion-item lines="full">
+                <ion-label>Starred messages</ion-label>
+              </ion-item>
+              <ion-item lines="none">
+                <ion-label>Settings</ion-label>
+              </ion-item>
+            </ion-list>
+          </ion-content>
+        </ng-template>
+      </ion-popover>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-segment value="chats" (ionChange)="segmentChanged($event)">
+      <ion-segment-button value="chats">
+        <ion-label>Chats</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="status">
+        <ion-label>Status</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="calls">
+        <ion-label>Calls</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-item-divider></ion-item-divider>
+  <div class="features ion-padding">
+    <div class="heading">
+      <ion-label>Features</ion-label>
+    </div>
+    <ion-item class="chat-gpt" detail="true" lines="none" routerLink="/chat-gpt">
+      <ion-avatar>
+        <img src="assets/robot-image-x500.jpeg" alt="item-img">
+      </ion-avatar>
+      <ion-label>
+        <h2>Chat-GPT</h2>
+        <p>Online</p>
+      </ion-label>
+    </ion-item>
+  </div>
+  <ion-item-divider></ion-item-divider>
+  <div class="chat-list" [hidden]="activeTab!=='chats'">
+    <div class="recent-chats ion-padding">
+
+      <ion-list class="chats">
+        <ion-item lines="none" detail="false" routerLink="/chat">
+          <ion-avatar slot="start">
+            <img src="https://i.pravatar.cc/300" alt="item-img">
+
+          </ion-avatar>
+          <ion-label class="ion-text-nowrap">
+            <h2>John Doe</h2>
+            <p>Hey, how are you?</p>
+          </ion-label>
+          <div class="info-div">
+            <p>2:13</p>
+          </div>
+        </ion-item>
+
+        <ion-item lines="none" detail="false" routerLink="/conversation-page">
+          <ion-avatar slot="start">
+            <img src="https://i.pravatar.cc/320" alt="item-img">
+
+          </ion-avatar>
+          <ion-label class="ion-text-nowrap">
+            <h2>Steve </h2>
+            <p>Typing ...</p>
+          </ion-label>
+          <div class="info-div">
+            <ion-badge>1</ion-badge>
+            <p>2:13</p>
+          </div>
+        </ion-item>
+
+        <ion-item lines="none" detail="false" routerLink="/conversation-page">
+          <ion-avatar slot="start">
+            <img src="https://i.pravatar.cc/340" alt="item-img">
+
+          </ion-avatar>
+          <ion-label class="ion-text-nowrap">
+            <h2>Devid </h2>
+            <p>Good morning</p>
+          </ion-label>
+          <div class="info-div">
+            <ion-icon name="checkmark-done-outline"></ion-icon>
+            <p>2:13</p>
+          </div>
+        </ion-item>
+        <ion-item lines="none" detail="false" routerLink="/conversation-page">
+          <ion-avatar slot="start">
+            <img src="https://i.pravatar.cc/350" alt="item-img">
+
+          </ion-avatar>
+          <ion-label class="ion-text-nowrap">
+            <h2>Jo Sept </h2>
+            <p class="last-message">Don't forget topic before</p>
+          </ion-label>
+          <div class="info-div">
+            <ion-icon name="checkmark-done-outline"></ion-icon>
+            <p>2:13</p>
+          </div>
+        </ion-item>
+
+
+      </ion-list>
+    </div>
+
+  </div>
+
+  <ion-fab-button>
+    <ion-icon name="chatbox-ellipses-outline"></ion-icon>
+  </ion-fab-button>
+</ion-content>

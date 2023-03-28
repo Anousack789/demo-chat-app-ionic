@@ -1,9 +1,60 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>register</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content color="primary">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Register Form</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <form novalidate [formGroup]="form" (ngSubmit)="onSubmit()">
+        <ion-item class="ion-no-padding">
+          <ion-label position="floating">Email</ion-label>
+          <ion-input type="email" formControlName="email"></ion-input>
 
-<ion-content>
+          <ion-note slot="error" *ngIf="form.controls['email'].touched && form.controls['email'].invalid">Invalid email</ion-note>
+        </ion-item>
+        <ion-item class="ion-no-padding">
+          <ion-label position="floating">Password</ion-label>
+          <ion-input type="password" formControlName="password"></ion-input>
+          <ion-note slot="error" *ngIf="form.controls['password'].touched && form.controls['password'].invalid">Invalid password</ion-note>
+        </ion-item>
 
+        <ion-item class="ion-no-padding">
+          <ion-label position="floating">Confirm Password</ion-label>
+          <ion-input type="password" formControlName="confirmPassword"></ion-input>
+          <ion-note slot="error" *ngIf="form.controls['confirmPassword'].touched && form.controls['confirmPassword'].invalid">Invalid password</ion-note>
+        </ion-item>
+        <ion-item class="ion-no-padding">
+          <ion-label position="floating">Full Name</ion-label>
+          <ion-input type="text" formControlName="fullName"></ion-input>
+          <ion-note slot="error" *ngIf="form.controls['fullName'].touched && form.controls['fullName'].invalid">Invalid full name</ion-note>
+        </ion-item>
+        <ion-item class="ion-no-padding">
+          <ion-label position="floating">Phone</ion-label>
+          <ion-input type="text" formControlName="phoneNumber" placeholder="20XXXXXXXX"></ion-input>
+          <ion-note slot="error" *ngIf="form.controls['phoneNumber'].touched && form.controls['phoneNumber'].invalid">Invalid Phone (20XXXXXXXX)</ion-note>
+        </ion-item>
+        <ion-item class="ion-no-padding">
+          <ion-label position="stacked">Birth Date</ion-label>
+          <ion-input type="date" formControlName="birthDate"></ion-input>
+          <ion-note slot="error" *ngIf="form.controls['birthDate'].touched && form.controls['birthDate'].invalid">Invalid birth date</ion-note>
+        </ion-item>
+        <ion-item class="ion-no-padding">
+          <ion-label position="floating">Gender</ion-label>
+          <ion-select formControlName="gender">
+            <ion-select-option value="male">Male</ion-select-option>
+            <ion-select-option value="female">Female</ion-select-option>
+            <ion-select-option value="other">Other</ion-select-option>
+          </ion-select>
+          <ion-note slot="error" *ngIf="form.controls['gender'].touched && form.controls['gender'].invalid">Invalid full name</ion-note>
+        </ion-item>
+        <ion-button expand="block" color="secondary" type="submit">Submit</ion-button>
+      </form>
+      <ion-item-divider></ion-item-divider>
+      <div class="optional">
+        <ion-button routerLink="/login">Login</ion-button>
+      </div>
+      <ion-button color="secondary" id="btn-google" (click)="loginByGoogle()">
+        <ion-label>Login by GOOGLE</ion-label>
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

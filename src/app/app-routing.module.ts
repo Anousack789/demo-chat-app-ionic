@@ -1,9 +1,13 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './helper/auth.guard';
+import { AuthResolver } from './helper/auth.resolver';
 
 const routes: Routes = [
   {
     path: '',
+    canActivate: [AuthGuard],
+    resolve: [AuthResolver],
     loadChildren: () =>
       import('./pages/pages.module').then((m) => m.PagesModule),
   },

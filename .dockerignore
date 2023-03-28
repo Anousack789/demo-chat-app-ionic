@@ -1,0 +1,8 @@
+Dockfile
+docker-compose.yml
+node_modules
+.angular
+.vscode
+android
+www
+!node_modules/@angular/fire

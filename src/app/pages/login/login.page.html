@@ -1,9 +1,26 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>login</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-
+<ion-content class="ion-padding" color="primary">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Welcome to KKS-GPT</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item fill="outline">
+        <ion-label position="floating">Email</ion-label>
+        <ion-input type="email" [(ngModel)]="email"></ion-input>
+      </ion-item>
+      <ion-item fill="outline">
+        <ion-label position="floating">Password</ion-label>
+        <ion-input type="password" [(ngModel)]="password"></ion-input>
+      </ion-item>
+      <ion-button expand="block" color="secondary" (click)="login()">Login</ion-button>
+      <ion-item-divider></ion-item-divider>
+      <div class="optional">
+        <ion-button expand="block" fill="outline" routerLink="/register">Register</ion-button>
+        <ion-button expand="block" fill="outline" routerLink="/reset-password">Reset Password</ion-button>
+      </div>
+      <ion-button color="secondary" id="btn-google" (click)="loginByGoogle()">
+        <ion-label>Login by GOOGLE</ion-label>
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

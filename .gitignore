@@ -8,7 +8,6 @@
 *.tmp.*
 UserInterfaceState.xcuserstate
 $RECYCLE.BIN/
-/.vscode/settings.json
 
 
 *.log
@@ -35,6 +34,7 @@ log.txt
 /node_modules
 npm-debug.log
 yarn-error.log
+!node_modules/@angular/fire
 
 # IDEs and editors
 .idea/
@@ -48,7 +48,7 @@ yarn-error.log
 
 # Visual Studio Code
 .vscode/*
-!.vscode/settings.json
+.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json

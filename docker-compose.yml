@@ -1,0 +1,10 @@
+version: "3.2"
+
+services:
+  main:
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8100:80"
