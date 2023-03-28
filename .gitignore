@@ -31,10 +31,11 @@ log.txt
 /bazel-out
 
 # Node
-/node_modules/*
+node_modules
+!node_modules/@angular/fire
+
 npm-debug.log
 yarn-error.log
-!node_modules/@angular/fire
 
 # IDEs and editors
 .idea/
