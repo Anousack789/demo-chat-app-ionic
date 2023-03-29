@@ -34,7 +34,6 @@
     "ionicons": "^6.0.3",
     "ngx-cookie-service": "^15.0.0",
     "ngx-socket-io": "^4.4.0",
-    "openai": "^3.2.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

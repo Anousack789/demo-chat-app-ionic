@@ -5,11 +5,23 @@ ion-card-content {
 }
 .optional {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 1.7rem;
+  margin-top: 0.8rem;
+  a {
+    max-width: 150px;
+    min-width: none;
+    font-size: 16px;
+  }
 }
 #btn-google {
   ion-icon {
     margin-left: 3px;
   }
+  // --color: var(--ion-color-secondary);
+  // --border: var(--ion-color-secondary) solid 1px;
+  // --background: transparent;
 }
 
 ion-card {
@@ -17,4 +29,10 @@ ion-card {
   left: 50%;
   transform: translateY(-50%) translateX(-50%);
   max-width: 350px;
+  width: 80%;
+}
+
+.login-button {
+  --color: white;
+  --background: var(--ion-color-secondary);
 }

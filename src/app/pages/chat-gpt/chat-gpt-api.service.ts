@@ -1,26 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Config } from 'src/app/config';
-import {
-  ChatCompletionRequestMessage,
-  ChatCompletionRequestMessageRoleEnum,
-  Configuration,
-  CreateChatCompletionRequest,
-  OpenAIApi,
-} from 'openai';
-import { BehaviorSubject } from 'rxjs';
+import { IChatMessage } from './i-chat-gpt';
 
 @Injectable()
 export class ChatGptApiService {
   constructor(private http: HttpClient) {}
   private baseUrl = Config.apiUrl + 'chatgpt';
 
-  private listMessage: ChatCompletionRequestMessage[] = [];
+  private listMessage: IChatMessage[] = [];
 
   sendMessage(uuid: string, message: string) {
     if (message.length > 0) {
-      const messageDto: ChatCompletionRequestMessage = {
-        role: ChatCompletionRequestMessageRoleEnum.User,
+      const messageDto: IChatMessage = {
+        role: 'user',
         content: message,
       };
       this.listMessage.push(messageDto);
@@ -39,8 +32,8 @@ export class ChatGptApiService {
   }
 
   addGptMessage(message: string) {
-    const messageDto: ChatCompletionRequestMessage = {
-      role: ChatCompletionRequestMessageRoleEnum.Assistant,
+    const messageDto: IChatMessage = {
+      role: 'assistant',
       content: message,
     };
     this.listMessage.push(messageDto);
