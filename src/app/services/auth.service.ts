@@ -7,7 +7,7 @@ import * as auth from 'firebase/auth';
 import { User } from 'firebase/auth';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject } from 'rxjs';
-import { Config } from '../config';
+import { AppConfig } from '../config';
 import { IFirebaseUser } from '../interfaces/i-user';
 
 @Injectable({
@@ -42,7 +42,7 @@ export class AuthService {
   idToken = '';
   isLoggedIn = false;
 
-  private registerUrl = Config.apiUrl + 'auth/register';
+  private registerUrl = AppConfig.apiUrl + 'auth/register';
 
   async initialize() {}
 

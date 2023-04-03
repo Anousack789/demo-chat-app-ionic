@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Config } from 'src/app/config';
+import { AppConfig } from 'src/app/config';
 import { IChatMessage } from './i-chat-gpt';
 
 @Injectable()
 export class ChatGptApiService {
   constructor(private http: HttpClient) {}
-  private baseUrl = Config.apiUrl + 'chatgpt';
+  private baseUrl = AppConfig.apiUrl + 'chatgpt';
 
   private listMessage: IChatMessage[] = [];
 

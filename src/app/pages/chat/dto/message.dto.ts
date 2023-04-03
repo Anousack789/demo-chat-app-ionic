@@ -1,5 +1,6 @@
 export interface MessageDto {
   id: string;
+  role: 'user' | 'assistant' | 'system';
   message: string;
   senderId: string;
   timestamp: number;

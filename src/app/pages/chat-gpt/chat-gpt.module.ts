@@ -8,9 +8,17 @@ import { ChatGptPageRoutingModule } from './chat-gpt-routing.module';
 
 import { ChatGptPage } from './chat-gpt.page';
 import { ChatGptApiService } from './chat-gpt-api.service';
-
+import { MenuComponent } from 'src/app/shared/components/menu.component';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 @NgModule({
-  imports: [CommonModule, FormsModule, IonicModule, ChatGptPageRoutingModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    ChatGptPageRoutingModule,
+    MenuComponent,
+    ScrollingModule,
+  ],
   declarations: [ChatGptPage],
   providers: [ChatGptApiService],
 })

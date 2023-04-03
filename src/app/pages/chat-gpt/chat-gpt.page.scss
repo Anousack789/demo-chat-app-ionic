@@ -8,13 +8,15 @@ ion-header {
     --padding-end: 15px;
 
     color: white;
-    ion-icon {
+    ion-icon,
+    ion-menu-button {
       color: white;
-      font-size: 1.1rem;
+      font-size: 2rem;
     }
     ion-avatar {
       max-width: 30px;
       max-height: 30px;
+      margin-left: 10px;
     }
     ion-label {
       ion-text {
@@ -32,127 +34,37 @@ ion-header {
 }
 ion-content {
   --background: #777;
-  --padding-bottom: 100px;
-  min-height: calc(100svh - 56px);
-  display: flex;
-  flex-direction: column;
-  .messages {
-    display: flex;
-    flex-direction: column;
+  ion-item {
+    --background: #777;
+    --padding-top: 15px;
+    --padding-bottom: 15px;
   }
   .message {
-    border-radius: 18px;
-    padding: 9px 10px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    font-size: 0.9rem;
-    white-space: pre-wrap;
-    display: inline-block;
-    min-width: fit-content;
   }
-  .receiver {
-    align-items: flex-start;
-    position: relative;
-    span {
-      font-size: 0.7rem;
-      color: var(--ion-color-medium);
-      margin-left: 10px;
-    }
-    .message {
-      background: var(--ion-color-light);
-      position: relative;
-    }
-    .message-last {
-      z-index: 13;
-      position: relative;
-      &:before {
-        content: "";
-        position: absolute;
-        z-index: -1;
-        bottom: 0;
-        left: -7px;
-        height: 20px;
-        width: 20px;
-        background-color: var(--ion-color-light);
-        border-bottom-right-radius: 15px;
-      }
-      &:after {
-        content: "";
-        position: absolute;
-        z-index: -1;
-        bottom: 0;
-        left: -10px;
-        width: 10px;
-        height: 20px;
-        background: #777;
-        border-bottom-right-radius: 10px;
-      }
-    }
-    .last-message-other {
-      display: flex;
-      align-items: flex-end;
-      margin-bottom: 5px;
-    }
+  .assistant {
   }
-  .sender {
-    align-items: flex-end;
-    span {
-      font-size: 0.7rem;
-      color: var(--ion-color-medium);
-      display: flex;
-      align-items: center;
-      margin-right: 10px;
-      ion-icon {
-        font-size: 1.1rem;
-      }
-    }
-    .message {
-      color: #fff;
-      background-color: var(--ion-color-secondary);
-      background-attachment: fixed;
-      position: relative;
-      margin-right: 3px;
-    }
-    .message-last {
-      &:before {
-        content: "";
-        position: absolute;
-        z-index: -1;
-        bottom: 0;
-        right: -8px;
-        height: 20px;
-        width: 20px;
-        border-bottom-left-radius: 15px;
-        background-color: var(--ion-color-secondary) ();
-      }
-      &:after {
-        content: "";
-        position: absolute;
-        z-index: -1;
-        bottom: 0;
-        right: -10px;
-        width: 10px;
-        height: 20px;
-        background: #777;
-        border-bottom-left-radius: 10px;
-      }
-    }
+  .user {
   }
 }
 
 ion-footer {
+  display: flex;
+  .message-container {
+    background-color: #777;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  }
   .message-input {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    position: fixed;
-    bottom: 0;
-    left: 0;
     width: 100%;
     padding: 10px 20px;
     padding-bottom: 10px;
-    z-index: 100;
-    background-color: var(--ion-color-primary);
+    max-width: 1100px;
+    margin: 0 auto;
+
     input {
       border: 1px solid #ddd;
       background: #ddd;
@@ -161,6 +73,7 @@ ion-footer {
       padding-left: 20px;
       width: 100%;
       outline: none;
+      color: #333;
     }
     .message-button {
       margin-left: 10px;

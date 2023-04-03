@@ -1,22 +1,21 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { IonContent } from '@ionic/angular';
 import {
   BehaviorSubject,
   catchError,
   concatMap,
-  delay,
-  filter,
   of,
   Subject,
   Subscription,
   takeUntil,
 } from 'rxjs';
 import { generateUuid } from 'src/app/helper/tools';
+import { AuthService } from 'src/app/services/auth.service';
 import { ChatService } from 'src/app/services/chat.service';
-import { MessageGroupDto } from '../chat/dto/message.dto';
+import { MessageDto } from '../chat/dto/message.dto';
 import { ChatGptApiService } from './chat-gpt-api.service';
-
-type MessageType = 'sender' | 'receiver';
+import { howToImpletementInstallPWA } from './dummy-data';
 
 @Component({
   selector: 'app-chat-gpt',
@@ -26,13 +25,30 @@ type MessageType = 'sender' | 'receiver';
 export class ChatGptPage implements OnInit, OnDestroy {
   constructor(
     private chatService: ChatService,
-    private chatApi: ChatGptApiService
+    private chatApi: ChatGptApiService,
+    public auth: AuthService,
+    private router: Router
   ) {}
 
   message = '';
   private streamInput = new Subject<string>();
   private streamMessage = new BehaviorSubject<string>('');
-  private listMessage = new BehaviorSubject<MessageGroupDto[]>([]);
+  private listMessage = new BehaviorSubject<MessageDto[]>([
+    {
+      id: '1',
+      role: 'assistant',
+      message: 'Hello, I am GPT-3. How can I help you?',
+      senderId: '1',
+      timestamp: new Date().getTime(),
+    },
+    {
+      id: '2',
+      role: 'assistant',
+      message: howToImpletementInstallPWA,
+      senderId: '2',
+      timestamp: new Date().getTime(),
+    },
+  ]);
   listMessage$ = this.listMessage.asObservable();
   streamMessage$ = this.streamMessage.asObservable();
   @ViewChild(IonContent, { read: IonContent, static: false }) ionContent:
@@ -42,10 +58,12 @@ export class ChatGptPage implements OnInit, OnDestroy {
   onResponding = false;
   private uuid = '';
 
+  onloading = false;
+
   private unsubscribe$ = new Subject<void>();
 
   private streamMessageSubscription = new Subscription();
-
+  canInstall = true;
   ngOnInit() {
     this.uuid = generateUuid();
     this.initialListenStreamMessage();
@@ -77,47 +95,24 @@ export class ChatGptPage implements OnInit, OnDestroy {
           this.streamInput.next(msg);
         } else if (this.onResponding && finish_reason) {
           this.onResponding = false;
-          const newMessage = this.streamMessage.value;
+          const streamMessage = this.streamMessage.value;
           this.streamMessage.next('');
-          const lastMessage =
-            this.listMessage.value[this.listMessage.value.length - 1];
-          if (lastMessage && lastMessage.type === 'receiver') {
-            const newReceiverMessage = {
-              ...lastMessage,
-              messages: [
-                ...lastMessage.messages,
-                {
-                  id: generateUuid(),
-                  senderId: 'gpt',
-                  message: newMessage,
-                  timestamp: new Date().getTime(),
-                },
-              ],
-            };
-            this.listMessage.next([
-              ...this.listMessage.value.slice(0, -1),
-              newReceiverMessage,
-            ]);
+          const lastMessage = this.listMessage.value.pop();
+          if (lastMessage && lastMessage.role === 'assistant') {
+            lastMessage.message += streamMessage;
+            this.listMessage.next([...this.listMessage.value, lastMessage]);
           } else {
-            const newReceiverMessage = {
-              type: 'receiver' as MessageType,
-              senderId: 'gpt',
-              messages: [
-                {
-                  id: generateUuid(),
-                  senderId: 'gpt',
-                  message: newMessage,
-                  timestamp: new Date().getTime(),
-                },
-              ],
+            const newMessage: MessageDto = {
+              id: generateUuid(),
+              role: 'assistant',
+              message: streamMessage,
+              senderId: 'assistant',
+              timestamp: new Date().getTime(),
             };
-            this.listMessage.next([
-              ...this.listMessage.value,
-              newReceiverMessage,
-            ]);
+            this.listMessage.next([...this.listMessage.value, newMessage]);
           }
 
-          this.chatApi.addGptMessage(newMessage);
+          this.chatApi.addGptMessage(streamMessage);
           if (finish_reason === 'length') {
             this.sendMessage();
           }
@@ -141,17 +136,12 @@ export class ChatGptPage implements OnInit, OnDestroy {
     this.onResponding = true;
     if (this.message.length > 0) {
       const currentListMessage = this.listMessage.value;
-      const newUserMessage = {
-        type: 'sender' as MessageType,
-        senderId: 'user',
-        messages: [
-          {
-            id: generateUuid(),
-            senderId: 'user',
-            message: this.message,
-            timestamp: new Date().getTime(),
-          },
-        ],
+      const newUserMessage: MessageDto = {
+        id: generateUuid(),
+        role: 'user',
+        message: this.message,
+        senderId: this.uuid,
+        timestamp: new Date().getTime(),
       };
       currentListMessage.push(newUserMessage);
 
@@ -188,4 +178,14 @@ export class ChatGptPage implements OnInit, OnDestroy {
     this.initialListenStreamMessage();
     this.streamMessage.next('');
   }
+
+  logout() {
+    if (this.onloading) return;
+    this.onloading = true;
+    this.auth.SignOut().then(() => {
+      this.router.navigate(['/login']);
+    });
+  }
+
+  installApp() {}
 }

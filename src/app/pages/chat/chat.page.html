@@ -34,20 +34,18 @@
       <ng-container class="message other" *ngFor="let msg of group.messages; let i = index">
         <ng-container *ngIf="i === group.messages.length - 1; else notLast">
           <div class="last-message-other">
-            <ion-avatar *ngIf="group.type === 'receiver'">
-              <img src="assets/robot-image-x500.jpeg" alt="item-img">
-            </ion-avatar>
-            <div class="message message-last">
+
+            <div class="message message-last" [innerText]="msg.message">
               {{msg.message}}
             </div>
+
           </div>
           <span>
             {{msg.timestamp | date : 'hh:mm a'}}
           </span>
         </ng-container>
         <ng-template #notLast>
-          <div class="message other">
-            {{msg.message}}
+          <div class="message other" [innerText]="msg.message">
           </div>
         </ng-template>
 
@@ -57,6 +55,8 @@
 
 
     </div>
+
+
   </ng-container>
 </ion-content>
 
